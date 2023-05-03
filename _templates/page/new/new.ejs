@@ -1,0 +1,25 @@
+---
+to: src/pages/<%= name %>.tsx
+---
+<% formattedPath = h.camelizedPathName(name).replace('/','') -%>
+<% pageName = `${formattedPath}Page` -%>
+<% base = h.camelizedBaseName(name) -%>
+import Head from 'next/head';
+
+function <%= pageName %>() {
+  return (
+    <>
+      <Head>
+        <title><%= pageName %></title>
+      </Head>
+
+      <div className="flex flex-col lg:flex-row">
+        <div className="flex justify-center items-center">
+          <h1 className="text-2xl font-bold">I am <%= name %> page</h1>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default <%= pageName %>;

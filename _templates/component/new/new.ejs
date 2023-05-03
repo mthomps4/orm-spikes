@@ -1,0 +1,15 @@
+---
+to: src/components/<%= [h.inflection.camelize(h.dirName(name)), h.camelizedBaseName(name)].filter(Boolean).join('/') %>.tsx
+---
+<% formattedPath = h.camelizedPathName(name) -%>
+<% component = h.camelizedBaseName(name) -%>
+/** Description of component */
+export function <%= component %>() {
+  const message = 'Hola! <%= component %> Created!';
+
+  return (
+    <div className="bg-red-300 text-white p-16 lg:p-24 flex justify-center items-center">
+      <h1 className="text-xl font-bold">{message}</h1>
+    </div>
+  );
+};
