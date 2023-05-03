@@ -24,6 +24,14 @@
     },
     "incremental": true
   },
-  "include": [".", "next-env.d.ts", "types.d.ts", "**/*.ts", "**/*.tsx", ".next-i18next.config.js"],
+  "include": [
+    ".",
+    "next-env.d.ts",
+    "types.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next-i18next.config.js",
+    ".sequelizerc"
+  ],
   "exclude": ["node_modules"]
 }
