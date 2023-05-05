@@ -1,7 +1,6 @@
-const { User } = require('~/db/models');
+import User from '~/db/models/user';
 
 export default async function handler(req, res) {
-  try {
-    const user = User.build({});
-  } catch (error) {}
+  const user = await User.create({ email: 'test@test.com' });
+  res.status(200).json({ user });
 }
