@@ -5,6 +5,7 @@ import { BisonError, t } from '@/server/trpc';
 import { hashPassword } from '@/services/auth';
 import { adminProcedure, protectedProcedure } from '@/server/middleware/auth';
 import { isAdmin } from '@/services/permissions';
+import { Users } from '@/models/user';
 
 export const defaultUserSelect = Prisma.validator<Prisma.UserSelect>()({
   id: true,
@@ -66,6 +67,14 @@ export const userRouter = t.router({
         },
         select: defaultUserSelect,
       };
+
+      return await Users.signup({
+        firstName: profile.firstName,
+        lastName: profile.lastName,
+        password: 'test1234',
+        email,
+        role: [Role.USER],
+      });
 
       return await ctx.db.user.create(updatedArgs);
     }),
