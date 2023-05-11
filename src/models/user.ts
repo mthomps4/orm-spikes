@@ -1,5 +1,6 @@
+import { Prisma, PrismaClient, Role, User } from '@prisma/client';
+
 import { prisma } from '@/lib/prisma';
-import { PrismaClient, Role, User } from '@prisma/client';
 
 export type SignupArgs = {
   email: string;
@@ -9,6 +10,33 @@ export type SignupArgs = {
   roles: Role[];
 };
 
+// OPTION 1: define extensions and import into lib/prisma
+// TODO: lib/prisma
+// import { UserExtensions } from '...';
+// const prisma = prisma.$extends(UserExtensions);
+
+// Make sure to install latest @prisma/client@latest for preview types
+// type a = PrismaClient['$extends'];
+
+export const UserExtensions = Prisma.defineExtension((client: PrismaClient) =>
+  client.$extends({
+    name: 'UserExtensions',
+    model: {
+      /* ... */
+    },
+    client: {
+      /* ... */
+    },
+    query: {
+      /* ... */
+    },
+    result: {
+      /* ... */
+    },
+  })
+);
+
+// OPTIONAL TAKE FOR MODEL SPECIFIC EXTENSIONS
 // This can extend the prisma methods once initialized -- `prisma.user.signup`
 export const ExtendedUserClient = (prismaUser: PrismaClient['user']) => {
   return Object.assign(prismaUser, {

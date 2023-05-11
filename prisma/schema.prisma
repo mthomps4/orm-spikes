@@ -3,7 +3,8 @@
 // Latest about migrations: https://www.prisma.io/blog/prisma-migrate-ga-b5eno5g08d0b
 
 generator prisma_client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["clientExtensions"]
 }
 
 datasource db {
