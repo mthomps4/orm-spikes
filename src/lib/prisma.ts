@@ -23,6 +23,7 @@ declare global {
 // Set default prisma logs. More logs in debug mode.
 const logOptions: Prisma.LogLevel[] = process.env.DEBUG ? ['query', 'error'] : ['error'];
 
+// This would need to become BASE_PRISMA for the future extends
 export const prisma =
   global.prisma ||
   new PrismaClient({

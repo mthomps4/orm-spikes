@@ -1,6 +1,4 @@
-import { Prisma, PrismaClient, Role, User } from '@prisma/client';
-
-import { prisma } from '@/lib/prisma';
+import { Prisma, PrismaClient, Role } from '@prisma/client';
 
 export type SignupArgs = {
   email: string;
@@ -18,6 +16,24 @@ export type SignupArgs = {
 // Make sure to install latest @prisma/client@latest for preview types
 // type a = PrismaClient['$extends'];
 
+// Example of Scopes...
+// const PostExtensions = Prisma.defineExtension((client: PrismaClient) => {
+//   client.$extends({
+//     model: {
+//       post: {
+//         unpublished: () => ({ published: false }),
+//         published: () => ({ published: true }),
+//         byAuthor: (authorId: string) => ({ authorId }),
+//         byAuthorDomain: (domain: string) => ({ author: { email: { endsWith: `@${domain}` } } }),
+//         hasComments: () => ({ comments: { some: {} } }),
+//         hasRecentComments: (date: Date) => ({ comments: { some: { createdAt: { gte: date } } } }),
+//         titleContains: (search: string) => ({ title: { contains: search } }),
+//       } satisfies Record<string, (...args: any) => Prisma.PostWhereInput>,
+//     },
+//   });
+// });
+
+// https://www.prisma.io/blog/client-extensions-preview-8t3w27xkrxxn#example-computed-fields
 export const UserExtensions = Prisma.defineExtension((client: PrismaClient) =>
   client.$extends({
     name: 'UserExtensions',
@@ -36,26 +52,26 @@ export const UserExtensions = Prisma.defineExtension((client: PrismaClient) =>
   })
 );
 
-// OPTIONAL TAKE FOR MODEL SPECIFIC EXTENSIONS
-// This can extend the prisma methods once initialized -- `prisma.user.signup`
-export const ExtendedUserClient = (prismaUser: PrismaClient['user']) => {
-  return Object.assign(prismaUser, {
-    async signup({ email, password, firstName, lastName, roles }: SignupArgs): Promise<User> {
-      return prismaUser.create({
-        data: {
-          email: email,
-          password: password,
-          roles,
-          profile: {
-            create: {
-              firstName: firstName,
-              lastName: lastName,
-            },
-          },
-        },
-      });
-    },
-  });
-};
+// // OPTIONAL TAKE FOR MODEL SPECIFIC EXTENSIONS
+// // This can extend the prisma methods once initialized -- `prisma.user.signup`
+// export const ExtendedUserClient = (prismaUser: PrismaClient['user']) => {
+//   return Object.assign(prismaUser, {
+//     async signup({ email, password, firstName, lastName, roles }: SignupArgs): Promise<User> {
+//       return prismaUser.create({
+//         data: {
+//           email: email,
+//           password: password,
+//           roles,
+//           profile: {
+//             create: {
+//               firstName: firstName,
+//               lastName: lastName,
+//             },
+//           },
+//         },
+//       });
+//     },
+//   });
+// };
 
-export const Users = ExtendedUserClient(prisma.user);
+// export const Users = ExtendedUserClient(prisma.user);
