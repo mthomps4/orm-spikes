@@ -33,6 +33,10 @@ export type SignupArgs = {
 //   });
 // });
 
+// MODELS
+// Company with Users
+// Company has one PRIMARY User for partial Index (maybe two branches - one raw SQL - one for Join Models)
+
 // https://www.prisma.io/blog/client-extensions-preview-8t3w27xkrxxn#example-computed-fields
 export const UserExtensions = Prisma.defineExtension((client: PrismaClient) =>
   client.$extends({
@@ -48,6 +52,7 @@ export const UserExtensions = Prisma.defineExtension((client: PrismaClient) =>
     },
     result: {
       /* ... */
+      // pull name fields forward from Profile
     },
   })
 );
