@@ -35,7 +35,8 @@ export type SignupArgs = {
 
 // MODELS
 // Company with Users
-// Company has one PRIMARY User for partial Index (maybe two branches - one raw SQL - one for Join Models)
+// Company has one PRIMARY User for partial Index -- RAW SQL Partial Index Example
+// Company has one isBilling -- Join Models Example
 
 // https://www.prisma.io/blog/client-extensions-preview-8t3w27xkrxxn#example-computed-fields
 export const UserExtensions = Prisma.defineExtension((client: PrismaClient) =>
